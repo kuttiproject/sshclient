@@ -43,9 +43,9 @@ func (sc *SSHClient) RunWithResults(address string, command string) (string, err
 	return string(resultdata), nil
 }
 
-// RunInterativeShell connects to the specified address and runs an interactive
+// RunInteractiveShell connects to the specified address and runs an interactive
 // shell.
-func (sc *SSHClient) RunInterativeShell(address string) {
+func (sc *SSHClient) RunInteractiveShell(address string) {
 	// Handle OS signals
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGTERM, syscall.SIGINT)
@@ -134,6 +134,7 @@ func (sc *SSHClient) runclient(ctx context.Context, address string) error {
 		if e, ok := err.(*ssh.ExitError); ok {
 			switch e.ExitStatus() {
 			case 130:
+				// Session terminated with a SIGINT
 				return nil
 			}
 		}
@@ -161,7 +162,7 @@ func (sc *SSHClient) CopyFrom(address string, remotePath string, localPath strin
 	return copyFileFromRemote(sc.config, address, remotePath, localPath)
 }
 
-// NewWithPassword creates a new SSH client with password authentication, and no host key check
+// NewWithPassword creates a new SSH client with password authentication, and no host key check.
 func NewWithPassword(username string, password string) *SSHClient {
 	return &SSHClient{
 		config: &ssh.ClientConfig{

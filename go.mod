@@ -1,12 +1,12 @@
 module github.com/kuttiproject/sshclient
 
-go 1.18
+go 1.22
 
 require (
-	github.com/containerd/console v1.0.3
-	github.com/kuttiproject/kuttilog v0.2.0
+	github.com/containerd/console v1.0.4
+	github.com/kuttiproject/kuttilog v0.2.1
 	github.com/povsister/scp v0.0.0-20210427074412-33febfd9f13e
-	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
+	golang.org/x/crypto v0.21.0
 )
 
-require golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
+require golang.org/x/sys v0.18.0 // indirect

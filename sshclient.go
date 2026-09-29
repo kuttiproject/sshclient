@@ -26,6 +26,7 @@ func (sc *SSHClient) RunWithResults(address string, command string) (string, err
 	if err != nil {
 		return "", fmt.Errorf("could not connect to address %s:%v ", address, err)
 	}
+	defer client.Close()
 
 	// Each ClientConn can support multiple interactive sessions,
 	// represented by a Session.
